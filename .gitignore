@@ -1,0 +1,19 @@
+# macOS system files
+.DS_Store
+
+# Build directories
+build/
+out/
+
+# IDE directories
+.vscode/
+.idea/
+.cache/
+
+# Python
+__pycache__/
+.Python
+.env
+.venv
+env/
+venv/
