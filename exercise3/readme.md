@@ -14,7 +14,7 @@
 
 ## 矩阵的成员变量和构造函数
 
-我们知道，一个矩阵需要有行数，列数，元素；对于代码来说还需要有存储方式，即一行一行存储的行主序（RowMajor， C-Style）和一列一列存储的列主序（ColMajor，Fortran-Style）。Numpy一般默认是RowMajor，Fortran默认ColMajor。这里我们先不考虑转置与否。我们下文都默认是**<u>RowMajor</u>**
+我们知道，一个矩阵需要有行数，列数，元素；对于代码来说还需要有存储方式，即一行一行存储的行主序（RowMajor， C-Style）和一列一列存储的列主序（ColMajor，Fortran-Style）。Numpy一般默认是RowMajor，Fortran默认ColMajor。这里我们先不考虑转置与否。我们下文都默认是**<u>RowMajor</u>**。存储方式对CPU的缓存命中非常重要！
 
 ```cpp
 template <typename T> class Matrix {
@@ -178,9 +178,16 @@ eigh(const Matrix<T> &H, const Matrix<T> &S) {
 }
 ```
 
+# 第三方矩阵库
+
+- [ ] 学习`Numpy`
+- [ ] 熟悉`Numpy`中的n-dimension array的基本算法（矩阵乘法，矩阵对角化）
+- [ ] 熟悉`np.einsum`的使用（很重要！）
+- [ ] （必须学C++的同学）尝试使用Eigen3（建议），Armadillo或其他应用广泛的矩阵库中的至少一个
+
 # Huckel分子轨道
 
-实现一个Huckel分子轨道计算的程序
+实现一个Huckel分子轨道计算的程序，可以基于自己上面写好的矩阵库，也可以基于Eigen3等第三方库。
 
 1. 构造Hamiltonian
 2. 对角化
