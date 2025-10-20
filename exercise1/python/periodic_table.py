@@ -1,6 +1,4 @@
-# 元素周期表数据结构
 PERIODIC_TABLE = {
-    # 原子序数1-20的常见元素
     "H": {"name": "氢", "atomic_number": 1, "atomic_weight": 1.008, "group": 1, "period": 1},
     "He": {"name": "氦", "atomic_number": 2, "atomic_weight": 4.003, "group": 18, "period": 1},
     "Li": {"name": "锂", "atomic_number": 3, "atomic_weight": 6.941, "group": 1, "period": 2},
@@ -21,7 +19,6 @@ PERIODIC_TABLE = {
     "Ar": {"name": "氩", "atomic_number": 18, "atomic_weight": 39.948, "group": 18, "period": 3},
     "K": {"name": "钾", "atomic_number": 19, "atomic_weight": 39.098, "group": 1, "period": 4},
     "Ca": {"name": "钙", "atomic_number": 20, "atomic_weight": 40.078, "group": 2, "period": 4},
-    # 添加一些过渡金属
     "Fe": {"name": "铁", "atomic_number": 26, "atomic_weight": 55.845, "group": 8, "period": 4},
     "Cu": {"name": "铜", "atomic_number": 29, "atomic_weight": 63.546, "group": 11, "period": 4},
     "Zn": {"name": "锌", "atomic_number": 30, "atomic_weight": 65.38, "group": 12, "period": 4},
@@ -46,11 +43,7 @@ def get_atomic_weight(symbol):
 def get_element_name(symbol):
     """获取元素名称"""
     element = get_element_info(symbol)
-    return element["name"] if element else "未知元素"
+    return element["name"] if element else None
 
-# 测试周期表功能
-if __name__ == "__main__":
-    print("元素周期表测试:")
-    print(f"氧元素: {get_element_info('O')}")
-    print(f"氢的原子量: {get_atomic_weight('H')}")
-    print(f"碳的名称: {get_element_name('C')}")
+
+
