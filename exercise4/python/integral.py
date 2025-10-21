@@ -15,7 +15,8 @@ _cint.cint1e_ovlp_sph.argtypes = [
     np.ctypeslib.ndpointer(dtype=np.double, ndim=1),
 ]
 _cint.cint1e_ovlp_sph.restype = ctypes.c_int
-
+#restype 是 ctypes 库中的一个属性，用于指定函数的返回值类型。
+#这里设置为 ctypes.c_int，表示 _cint1e_ovlp_sph 函数返回一个整数值。
 
 def ovlp_sph(mol):
     atm = mol._atm
@@ -26,8 +27,12 @@ def ovlp_sph(mol):
     S = np.zeros((nbas, nbas))
     for i in range(nbas):
         for j in range(nbas):
-            di = 1  # TODO:
-            dj = 1  # TODO:
+           
+            ang_i = bas[i, 1]  # 角动量量子数
+            ang_j = bas[j, 1]
+            
+            di = 2 * ang_i + 1
+            dj = 2 * ang_j + 1
             buf = np.empty((di, dj), order="F")
             if (
                 _cint.cint1e_ovlp_sph(
