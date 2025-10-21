@@ -22,31 +22,34 @@ def ovlp_sph(mol):
     atm = mol._atm
     bas = mol._bas
     env = mol._env
-    natm = atm.shape[0]
-    nbas = bas.shape[0]
+    natm = atm.shape[0]  #原子数
+    nbas = bas.shape[0]  #壳层数
     S = np.zeros((nbas, nbas))
+    #创建一个形状为 (nbas, nbas) 的零矩阵 S，用于存储每个壳层对之间的重叠积分
     for i in range(nbas):
         for j in range(nbas):
            
-            ang_i = bas[i, 1]  # 角动量量子数
-            ang_j = bas[j, 1]
-            
-            di = 2 * ang_i + 1
-            dj = 2 * ang_j + 1
+            ang_i = bas[i, 1]  # 壳层i的角动量
+            ang_j = bas[j, 1]  # 壳层j的角动量
+
+            di = 2 * ang_i + 1  # 壳层i的基函数个数
+            dj = 2 * ang_j + 1  # 壳层j的基函数个数
+        
             buf = np.empty((di, dj), order="F")
             if (
                 _cint.cint1e_ovlp_sph(
-                    buf,
-                    (ctypes.c_int * 2)(i, j),
-                    atm,
-                    natm,
-                    bas,
+                    buf,      # 输出：存放结果
+                    (ctypes.c_int * 2)(i, j),  # 输入：计算壳层i和j
+                    atm,  # 输入：原子信息
+                    natm, 
+                    bas,  # 输入：基组信息  
                     nbas,
-                    env,
+                    env,  # 输入：环境数据
                 )
                 == 0
             ):
-                raise RuntimeError("cint1e_ovlp_sph failed")
+                raise RuntimeError("cint1e_ovlp_sph failed") 
+            #如果 C 语言函数调用返回 0，表示计算失败，代码将抛出一个 RuntimeError
             S[i, j] = buf[0, 0]
     return S
 
@@ -65,3 +68,4 @@ if __name__ == "__main__":
     )
     S = ovlp_sph(mol)
     print(S)
+    
